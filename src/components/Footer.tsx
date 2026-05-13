@@ -47,7 +47,7 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-wrap items-center justify-between gap-4">
           <img src={logo} alt="Fastest Production" width={180} height={48} className="h-10 w-auto" />
           <div className="text-xs text-white/40 tracking-wider">
-            © {new Date().getFullYear()} FASTEST PRODUCTION — AN ALFARES COMPANY
+            © {new Date().getFullYear()} FASTEST PRODUCTION
           </div>
         </div>
       </div>

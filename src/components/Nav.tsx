@@ -7,7 +7,6 @@ export function Nav() {
       <div className="hidden md:flex items-center gap-8 text-xs tracking-[0.25em] text-white">
         <a href="#services" className="hover:text-neon transition-colors">SERVICES</a>
         <a href="#work" className="hover:text-neon transition-colors">WORK</a>
-        <a href="#ethos" className="hover:text-neon transition-colors">ETHOS</a>
         <a href="#contact" className="hover:text-neon transition-colors">CONTACT</a>
       </div>
       <div className="hidden md:flex items-center gap-2 text-xs text-neon tracking-[0.25em]">
