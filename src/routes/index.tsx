@@ -1,26 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Nav } from "@/components/Nav";
+import { HeroOrigin } from "@/components/HeroOrigin";
+import { Services } from "@/components/Services";
+import { Portfolio } from "@/components/Portfolio";
+import { EthosTicker } from "@/components/EthosTicker";
+import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Fastest Production — Always Ready. The Origin Point." },
+      { name: "description", content: "An Alfares Company. From a single point to fully realized 3D production. Stage building, heavy carpentry, digital printing, and event execution with zero delays." },
+      { property: "og:title", content: "Fastest Production — Always Ready" },
+      { property: "og:description", content: "Speed is nothing without control. The expert operator for stage, build, and event production." },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="bg-black text-white">
+      <Nav />
+      <HeroOrigin />
+      <section id="services"><Services /></section>
+      <section id="work"><Portfolio /></section>
+      <section id="ethos"><EthosTicker /></section>
+      <section id="contact"><Footer /></section>
+    </main>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
