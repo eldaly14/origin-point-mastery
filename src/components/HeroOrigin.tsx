@@ -91,7 +91,7 @@ export function HeroOrigin() {
           className="mb-4 flex items-center gap-3 text-xs tracking-[0.3em] text-neon"
         >
           <span className="h-px w-12 bg-neon" />
-          FASTEST PRODUCTION — AN ALFARES COMPANY
+          FASTEST PRODUCTION
           <span className="h-px w-12 bg-neon" />
         </motion.div>
 
