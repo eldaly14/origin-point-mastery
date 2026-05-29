@@ -96,9 +96,6 @@ export function Footer() {
         <div className="flex items-end justify-between gap-6 pt-2">
           <div className="flex items-center gap-3">
             <img src={logo} alt="Fastest Production" className="h-8 w-auto" />
-            <span className="font-display text-white text-xs tracking-[0.3em]">
-              FASTEST PRODUCTION
-            </span>
           </div>
           <div className="text-white/40 text-[11px] tracking-[0.3em] font-display">
             © {new Date().getFullYear()} — ALL RIGHTS RESERVED
