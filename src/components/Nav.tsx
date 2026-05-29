@@ -26,10 +26,6 @@ export function Nav() {
       <div className="px-8 py-5 flex items-center justify-between">
         <a href="/" className="flex items-center gap-3">
           <img src={logo} alt="Fastest Production" className="h-9 w-auto" />
-          <span className="font-display text-white text-lg leading-none tracking-wide">
-            Fastest<br />
-            <span className="text-white/80">Production</span>
-          </span>
         </a>
 
         <div className="hidden md:flex items-center gap-10 text-[11px] tracking-[0.3em] text-white font-display">
@@ -51,13 +47,14 @@ export function Nav() {
           </a>
         </div>
       </div>
-      {/* scroll progress line */}
+      {/* scroll progress line - gradient fade from transparent left */}
       <div className="relative h-px bg-white/5">
         <div
-          className="absolute left-0 top-0 h-px bg-neon"
+          className="absolute left-0 top-0 h-px"
           style={{
             width: `${progress * 100}%`,
-            boxShadow: "0 0 12px #01ea5a, 0 0 24px #01ea5a88",
+            background: "linear-gradient(to right, transparent 0%, #01ea5a33 30%, #01ea5a 100%)",
+            boxShadow: "0 0 12px #01ea5a88",
           }}
         />
       </div>
