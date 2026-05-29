@@ -26,10 +26,6 @@ export function Nav() {
       <div className="px-8 py-5 flex items-center justify-between">
         <a href="/" className="flex items-center gap-3">
           <img src={logo} alt="Fastest Production" className="h-9 w-auto" />
-          <span className="font-display text-white text-lg leading-none tracking-wide">
-            Fastest<br />
-            <span className="text-white/80">Production</span>
-          </span>
         </a>
 
         <div className="hidden md:flex items-center gap-10 text-[11px] tracking-[0.3em] text-white font-display">
