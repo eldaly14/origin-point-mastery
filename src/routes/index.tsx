@@ -5,7 +5,9 @@ import { Services } from "@/components/Services";
 import { Portfolio } from "@/components/Portfolio";
 import { Manifesto } from "@/components/Manifesto";
 import { EthosTicker } from "@/components/EthosTicker";
-import { Footer } from "@/components/Footer";
+
+// FIX: Removed curly braces to use the default export
+import Footer from "@/components/Footer"; 
 
 export const Route = createFileRoute("/")({
   head: () => ({
