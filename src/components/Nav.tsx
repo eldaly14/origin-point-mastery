@@ -47,13 +47,14 @@ export function Nav() {
           </a>
         </div>
       </div>
-      {/* scroll progress line */}
+      {/* scroll progress line - gradient fade from transparent left */}
       <div className="relative h-px bg-white/5">
         <div
-          className="absolute left-0 top-0 h-px bg-neon"
+          className="absolute left-0 top-0 h-px"
           style={{
             width: `${progress * 100}%`,
-            boxShadow: "0 0 12px #01ea5a, 0 0 24px #01ea5a88",
+            background: "linear-gradient(to right, transparent 0%, #01ea5a33 30%, #01ea5a 100%)",
+            boxShadow: "0 0 12px #01ea5a88",
           }}
         />
       </div>
