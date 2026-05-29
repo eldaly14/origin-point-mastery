@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function FooterSection() {
+export function Footer() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
