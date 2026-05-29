@@ -1,105 +1,115 @@
-import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/fastest-logo-white.png";
 
-function Skyline() {
-  // varied rectangular/square architectural blocks
-  const bars = [
-    { h: 60, w: 60 }, { h: 140, w: 50 }, { h: 90, w: 80 }, { h: 180, w: 45 },
-    { h: 70, w: 70 }, { h: 200, w: 55 }, { h: 110, w: 90 }, { h: 50, w: 50 },
-    { h: 160, w: 40 }, { h: 130, w: 75 }, { h: 80, w: 60 }, { h: 220, w: 50 },
-    { h: 100, w: 100 }, { h: 60, w: 45 }, { h: 170, w: 55 }, { h: 90, w: 70 },
-    { h: 140, w: 40 }, { h: 200, w: 65 }, { h: 75, w: 55 }, { h: 120, w: 85 },
-    { h: 55, w: 55 }, { h: 190, w: 45 }, { h: 100, w: 70 }, { h: 150, w: 50 },
-    { h: 80, w: 95 }, { h: 210, w: 40 }, { h: 65, w: 60 }, { h: 130, w: 75 },
-  ].map((b, i) => ({ ...b, delay: (i % 10) * 0.08 }));
-  return (
-    <div className="relative h-56 w-full overflow-hidden">
-      <div className="absolute inset-x-0 bottom-0 flex items-end gap-[4px] px-2">
-        {bars.map((b, i) => (
-          <motion.div
-            key={i}
-            initial={{ height: 0 }}
-            whileInView={{ height: b.h }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: b.delay, ease: "easeOut" }}
-            style={{ width: b.w }}
-            className="relative bg-[#001508] border border-neon/50"
-          >
-            <motion.div
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2 + (i % 4) * 0.4, repeat: Infinity, delay: b.delay }}
-              className="absolute top-0 inset-x-0 h-px bg-neon"
-              style={{ boxShadow: "0 0 14px #01ea5a, 0 0 32px #01ea5a88" }}
-            />
-            {/* window grid */}
-            <div className="absolute inset-2 grid grid-cols-2 gap-1 opacity-40">
-              {Array.from({ length: Math.max(2, Math.floor(b.h / 20)) * 2 }).map((_, k) => (
-                <div key={k} className="bg-neon/30" style={{ height: 4 }} />
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function Footer() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setVisible(true)),
+      { threshold: 0.2 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
-    <footer className="relative bg-black overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-10 pt-28 pb-10">
-        <p className="font-display text-neon glow-text text-xs tracking-[0.4em] mb-8">
-          // READY TO BUILD?
-        </p>
+    <footer id="footer" ref={ref} className="relative bg-black border-t border-border overflow-hidden">
+      
+      {/* BACKGROUND: Tetris falling blocks */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute inset-x-0 bottom-0 h-32 grid"
+          style={{ gridTemplateColumns: "repeat(24, minmax(0, 1fr))" }}
+        >
+          {Array.from({ length: 24 }).map((_, i) => (
+            <div
+              key={i}
+              className="bg-secondary border-r border-black self-end"
+              style={{
+                height: `${30 + ((i * 37) % 90)}px`,
+                animation: visible
+                  ? `block-fall 0.9s cubic-bezier(0.34, 1.2, 0.64, 1) ${i * 0.04}s both`
+                  : "none",
+                opacity: visible ? 1 : 0,
+              }}
+            />
+          ))}
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-black leading-[0.95] text-white uppercase">
-              Let's <span className="text-neon glow-text-strong">start</span>
-              <br />
-              the build.
+      {/* FOREGROUND CONTENT */}
+      <div className="relative mx-auto max-w-[1600px] px-6 pt-32 pb-16 z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 items-start">
+          
+          {/* Left Column: Huge Text & Button */}
+          <div className="lg:col-span-7">
+            <p className="font-display text-xs tracking-[0.4em] text-neon mb-6">
+              // READY TO BUILD?
+            </p>
+            {/* Reduced from 10rem to scale cleanly on mobile and desktop */}
+            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-black leading-[0.95] mb-8 text-white uppercase">
+              LET'S <span className="text-neon glow-text-strong">START</span><br />
+              THE BUILD.
             </h2>
-
             <a
               href="mailto:info@fastestproduction.com"
-              className="mt-10 inline-flex items-center gap-4 px-12 py-6 bg-neon text-black font-display tracking-[0.3em] text-sm hover:shadow-neon-lg transition-all"
+              className="inline-block relative group mt-4"
             >
-              START THE BUILD <span>→</span>
+              <div className="px-12 py-6 bg-neon text-black font-display text-sm md:text-base tracking-[0.2em] relative z-10 hover:shadow-neon-lg transition-shadow">
+                START THE BUILD →
+              </div>
+              <div className="absolute inset-0 bg-neon opacity-0 group-hover:opacity-50 group-hover:animate-[ripple-out_0.8s_ease-out]" />
             </a>
           </div>
 
-          <div className="grid grid-cols-2 gap-12 pt-10">
-            {[
-              { h: "CONTACT", lines: ["info@fastestproduction.com", "+966 11 000 0000"] },
-              { h: "STUDIO", lines: ["Riyadh, Saudi Arabia", "24 / 7 Production Floor"] },
-              { h: "SOCIAL", lines: ["Facebook", "Instagram", "LinkedIn", "WhatsApp"] },
-              { h: "HOURS", lines: ["24 / 7", "Always Ready"] },
-            ].map((b) => (
-              <div key={b.h}>
-                <div className="font-display text-neon glow-text text-xs tracking-[0.35em] mb-4">
-                  {b.h}
-                </div>
-                {b.lines.map((l) => (
-                  <div key={l} className="text-white/70 text-sm mb-1.5">
-                    {l}
-                  </div>
-                ))}
-              </div>
-            ))}
+          {/* Right Column: Information Grid */}
+          <div className="lg:col-span-5 grid grid-cols-2 gap-8 content-end pt-12 lg:pt-0">
+            <div>
+              <p className="font-display text-xs tracking-[0.3em] text-neon mb-3">CONTACT</p>
+              <p className="text-sm text-white/70 leading-relaxed">
+                info@fastestproduction.com<br />
+                +966 11 000 0000
+              </p>
+            </div>
+            <div>
+              <p className="font-display text-xs tracking-[0.3em] text-neon mb-3">STUDIO</p>
+              <p className="text-sm text-white/70 leading-relaxed">
+                Riyadh, Saudi Arabia<br />
+                24 / 7 Production Floor
+              </p>
+            </div>
+            <div>
+              <p className="font-display text-xs tracking-[0.3em] text-neon mb-3">SOCIAL</p>
+              <ul className="text-sm text-white/70 space-y-1">
+                <li><a href="#" className="hover:text-white transition-colors">Facebook</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">LinkedIn</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">WhatsApp</a></li>
+              </ul>
+            </div>
+            <div>
+              <p className="font-display text-xs tracking-[0.3em] text-neon mb-3">HOURS</p>
+              <p className="text-sm text-white/70 leading-relaxed">
+                24 / 7<br />
+                Always Ready
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="mt-20 border-t border-white/10 pt-6" />
-
-        <Skyline />
-
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pt-2">
+        {/* Bottom Bar: Logo & Copyright */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 pt-8 border-t border-white/10">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Fastest Production" className="h-8 w-auto" />
+            {/* Added flex-shrink-0 to guarantee the logo never squishes on mobile */}
+            <img src={logo} alt="Fastest Production" className="h-8 w-auto flex-shrink-0" />
           </div>
-          <div className="text-white/40 text-[11px] tracking-[0.3em] font-display">
+          <p className="text-[11px] text-white/40 tracking-[0.3em] font-display">
             © {new Date().getFullYear()} — ALL RIGHTS RESERVED
-          </div>
+          </p>
         </div>
       </div>
     </footer>
