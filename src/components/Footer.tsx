@@ -1,75 +1,54 @@
-import { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
-import logo from "@/assets/fastest-logo.png"; // Ensure this path is correct
+import logo from "@/assets/fastest-logo.png";
 
 export function Footer() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setVisible(true)),
-      { threshold: 0.2 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
   return (
-    <footer ref={ref} className="relative bg-black pt-32 overflow-hidden border-t border-border">
-      {/* Background Tetris Blocks */}
-      <div className="absolute inset-x-0 bottom-0 h-48 pointer-events-none z-0">
-        <div className="absolute inset-x-0 bottom-0 h-full grid" style={{ gridTemplateColumns: "repeat(24, 1fr)" }}>
-          {Array.from({ length: 24 }).map((_, i) => (
-            <div key={i} className="bg-secondary border-r border-black/40" style={{
-              height: `${20 + ((i * 37) % 80)}%`,
-              animation: visible ? `block-fall 0.9s cubic-bezier(0.34, 1.2, 0.64, 1) ${i * 0.04}s both` : "none"
-            }} />
+    <footer className="relative bg-[#001508] overflow-hidden">
+      {/* 3D foundation block */}
+      <div className="absolute inset-x-0 top-0 h-2 bg-neon shadow-neon-sm" />
+      <div className="absolute inset-x-0 top-2 h-1 bg-[#018031]" />
+
+      <div className="relative max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div>
+          <div className="text-xs tracking-[0.3em] text-neon mb-4">— THE FOUNDATION</div>
+          <h2 className="font-display text-5xl md:text-7xl text-white leading-[0.9]">
+            Your trusted<br />partner.
+          </h2>
+          <p className="mt-6 max-w-md text-white/60 text-sm">
+            Send us your blueprint. We'll send back a build schedule, a budget,
+            and a guarantee of zero delays.
+          </p>
+
+          <div className="mt-10 inline-flex items-stretch group cursor-pointer">
+            <div className="bg-neon px-8 py-5 font-display text-black text-lg tracking-wider transition-all group-hover:px-10">
+              SEND YOUR BLUEPRINT
+            </div>
+            <div className="bg-neon/80 px-5 flex items-center text-black font-display text-2xl group-hover:bg-white transition-colors">
+              →
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { label: "EMAIL", value: "build@fastest.sa" },
+            { label: "PHONE", value: "+966 50 000 0000" },
+            { label: "STUDIO", value: "Riyadh, KSA" },
+            { label: "HOURS", value: "24 / 7 / 365" },
+          ].map((c) => (
+            <div key={c.label} className="border border-neon/30 bg-black/40 p-5">
+              <div className="text-[10px] tracking-[0.3em] text-neon mb-2">{c.label}</div>
+              <div className="font-display text-white text-lg">{c.value}</div>
+            </div>
           ))}
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-[1600px] px-6 pb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
-          <div className="lg:col-span-7">
-            <p className="font-display text-xs tracking-[0.4em] text-primary mb-6">// READY TO BUILD?</p>
-            <h2 className="font-display text-7xl md:text-[9rem] leading-[0.85] text-white mb-10">
-              LET'S <span className="text-primary text-glow">START</span><br />THE BUILD.
-            </h2>
-            <button className="px-10 py-5 bg-primary text-primary-foreground font-display text-3xl tracking-[0.2em] hover:shadow-[0_0_40px_oklch(0.82_0.27_145/0.8)] transition-all">
-              START THE BUILD &rarr;
-            </button>
+      <div className="border-t border-neon/20">
+        <div className="max-w-7xl mx-auto px-6 py-8 flex flex-wrap items-center justify-between gap-4">
+          <img src={logo} alt="Fastest Production" width={180} height={48} className="h-10 w-auto" />
+          <div className="text-xs text-white/40 tracking-wider">
+            © {new Date().getFullYear()} FASTEST PRODUCTION
           </div>
-
-          {/* Animated Data Grid */}
-          <div className="lg:col-span-5 grid grid-cols-2 gap-x-8 gap-y-12 content-end">
-            {[
-              { label: "CONTACT", value: "hello@fastestproduction.com" },
-              { label: "STUDIO", value: "Riyadh, Saudi Arabia" },
-              { label: "SOCIAL", value: "Instagram / LinkedIn" },
-              { label: "HOURS", value: "24 / 7 Always Ready" }
-            ].map((item, i) => (
-              <motion.div 
-                key={item.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.15, duration: 0.6 }}
-                viewport={{ once: true }}
-                className="border border-neon/30 bg-black/40 p-5"
-              >
-                <p className="font-display text-xs tracking-[0.3em] text-primary mb-4">{item.label}</p>
-                <p className="text-sm text-muted-foreground leading-loose">{item.value}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer Bottom with Logo */}
-        <div className="flex justify-between items-center pt-8 border-t border-border/50">
-          <img src={logo} alt="Fastest Production" className="h-8 w-auto" />
-          <p className="text-xs text-muted-foreground tracking-[0.2em] uppercase">© {new Date().getFullYear()} — ALL RIGHTS RESERVED</p>
         </div>
       </div>
     </footer>
