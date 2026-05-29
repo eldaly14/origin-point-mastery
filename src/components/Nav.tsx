@@ -1,49 +1,66 @@
-import logo from "@/assets/fastest-logo.png";
+import { useEffect, useState } from "react";
+import logo from "@/assets/fastest-logo-white.png";
 
 export function Nav() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+      setProgress(Math.min(1, Math.max(0, scrolled)));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const links = [
+    { href: "#services", label: "SERVICES" },
+    { href: "#work", label: "PORTFOLIO" },
+    { href: "#ethos", label: "ETHOS" },
+  ];
+
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 px-8 py-6 flex items-center justify-between bg-gradient-to-b from-black/90 via-black/50 to-transparent backdrop-blur-sm">
-      
-      {/* Logo Section */}
-      <a href="/" className="flex items-center">
-        <img 
-          src={logo} 
-          alt="Fastest Production" 
-          width={160} 
-          height={42} 
-          className="h-8 w-auto hover:opacity-80 transition-opacity drop-shadow-lg" 
-        />
-      </a>
+    <nav className="fixed top-0 inset-x-0 z-50 bg-black/85 backdrop-blur-md">
+      <div className="px-8 py-5 flex items-center justify-between">
+        <a href="/" className="flex items-center gap-3">
+          <img src={logo} alt="Fastest Production" className="h-9 w-auto" />
+          <span className="font-display text-white text-lg leading-none tracking-wide">
+            Fastest<br />
+            <span className="text-white/80">Production</span>
+          </span>
+        </a>
 
-      {/* Right Navigation & Status */}
-      <div className="hidden md:flex items-center gap-8 text-xs tracking-[0.2em] text-white font-display">
-        
-        {/* The "Dot" Concept + Text Glow */}
-        <div className="flex items-center gap-2 mr-4 text-neon glow-text border-r border-white/10 pr-8">
-          <span className="h-2 w-2 bg-neon animate-pulse-dot" />
-          ALWAYS READY
+        <div className="hidden md:flex items-center gap-10 text-[11px] tracking-[0.3em] text-white font-display">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="relative hover:text-neon transition-colors duration-300"
+            >
+              {l.label}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            className="px-7 py-3 bg-neon text-black font-display text-[11px] tracking-[0.3em] hover:shadow-neon transition-all"
+            style={{ boxShadow: "0 0 0 transparent" }}
+          >
+            CONTACT
+          </a>
         </div>
-
-        {/* Hover Links with Shadow Effects */}
-        <a href="#services" className="hover:text-neon hover:glow-text transition-all duration-300">
-          SERVICES
-        </a>
-        <a href="#portfolio" className="hover:text-neon hover:glow-text transition-all duration-300">
-          PORTFOLIO
-        </a>
-        <a href="#ethos" className="hover:text-neon hover:glow-text transition-all duration-300">
-          ETHOS
-        </a>
-        
-        {/* Contact Button */}
-        <a 
-          href="#contact" 
-          className="ml-2 px-6 py-3 bg-neon text-black font-semibold hover:bg-white hover:shadow-neon transition-all duration-300"
-        >
-          CONTACT
-        </a>
       </div>
-      
+      {/* scroll progress line */}
+      <div className="relative h-px bg-white/5">
+        <div
+          className="absolute left-0 top-0 h-px bg-neon"
+          style={{
+            width: `${progress * 100}%`,
+            boxShadow: "0 0 12px #01ea5a, 0 0 24px #01ea5a88",
+          }}
+        />
+      </div>
     </nav>
   );
 }
