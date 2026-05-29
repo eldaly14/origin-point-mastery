@@ -98,13 +98,3 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-8 border-t border-border/50">
           <div className="flex items-center gap-4">
             <div className="w-5 h-5 bg-primary shadow-[0_0_15px_oklch(0.82_0.27_145/0.8)]" />
-            <span className="font-display text-sm tracking-[0.3em] text-white">FASTEST PRODUCTION</span>
-          </div>
-          <p className="text-xs text-muted-foreground tracking-[0.2em] font-sans uppercase">
-            © {new Date().getFullYear()} — ALL RIGHTS RESERVED
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-}
