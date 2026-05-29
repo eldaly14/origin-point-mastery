@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import logo from "@/assets/fastest-logo-white.png";
 
 export function Footer() {
@@ -19,25 +20,42 @@ export function Footer() {
   return (
     <footer id="footer" ref={ref} className="relative bg-black border-t border-border overflow-hidden">
       
-      {/* BACKGROUND: Tetris falling blocks */}
+      {/* BACKGROUND: Moving Equalizer Blocks */}
       <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute inset-x-0 bottom-0 h-32 grid"
+          className="absolute inset-x-0 bottom-0 h-48 grid items-end"
           style={{ gridTemplateColumns: "repeat(24, minmax(0, 1fr))" }}
         >
-          {Array.from({ length: 24 }).map((_, i) => (
-            <div
-              key={i}
-              className="bg-secondary border-r border-black self-end"
-              style={{
-                height: `${30 + ((i * 37) % 90)}px`,
-                animation: visible
-                  ? `block-fall 0.9s cubic-bezier(0.34, 1.2, 0.64, 1) ${i * 0.04}s both`
-                  : "none",
-                opacity: visible ? 1 : 0,
-              }}
-            />
-          ))}
+          {Array.from({ length: 24 }).map((_, i) => {
+            // Generate a deterministic random height for each block
+            const baseHeight = 30 + ((i * 37) % 90);
+            const peakHeight = baseHeight + 20 + ((i * 23) % 40);
+
+            return (
+              <motion.div
+                key={i}
+                className="bg-secondary border-r border-black self-end"
+                initial={{ height: 0, opacity: 0 }}
+                animate={
+                  visible
+                    ? {
+                        height: [baseHeight, peakHeight, baseHeight],
+                        opacity: 1,
+                      }
+                    : { height: 0, opacity: 0 }
+                }
+                transition={{
+                  opacity: { duration: 0.6, delay: i * 0.04 },
+                  height: {
+                    repeat: Infinity,
+                    duration: 2 + (i % 4) * 0.5, // Varies the speed per block (2s to 3.5s)
+                    ease: "easeInOut",
+                    delay: i * 0.04, // Staggers the initial start time
+                  },
+                }}
+              />
+            );
+          })}
         </div>
       </div>
 
@@ -50,7 +68,6 @@ export function Footer() {
             <p className="font-display text-xs tracking-[0.4em] text-neon mb-6">
               // READY TO BUILD?
             </p>
-            {/* Reduced from 10rem to scale cleanly on mobile and desktop */}
             <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-black leading-[0.95] mb-8 text-white uppercase">
               LET'S <span className="text-neon glow-text-strong">START</span><br />
               THE BUILD.
@@ -104,7 +121,6 @@ export function Footer() {
         {/* Bottom Bar: Logo & Copyright */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 pt-8 border-t border-white/10">
           <div className="flex items-center gap-3">
-            {/* Added flex-shrink-0 to guarantee the logo never squishes on mobile */}
             <img src={logo} alt="Fastest Production" className="h-8 w-auto flex-shrink-0" />
           </div>
           <p className="text-[11px] text-white/40 tracking-[0.3em] font-display">
