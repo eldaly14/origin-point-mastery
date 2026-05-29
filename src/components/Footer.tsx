@@ -54,14 +54,14 @@ export function Footer() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div>
-            <h2 className="font-display text-[clamp(3rem,9vw,8rem)] leading-[0.95] text-white uppercase">
+            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-black leading-[0.95] text-white uppercase">
               Let's <span className="text-neon glow-text-strong">start</span>
               <br />
               the build.
             </h2>
 
             <a
-              href="mailto:hello@fastestproduction.com"
+              href="mailto:info@fastestproduction.com"
               className="mt-10 inline-flex items-center gap-4 px-12 py-6 bg-neon text-black font-display tracking-[0.3em] text-sm hover:shadow-neon-lg transition-all"
             >
               START THE BUILD <span>→</span>
@@ -70,9 +70,9 @@ export function Footer() {
 
           <div className="grid grid-cols-2 gap-12 pt-10">
             {[
-              { h: "CONTACT", lines: ["hello@fastestproduction.com", "+966 11 000 0000"] },
+              { h: "CONTACT", lines: ["info@fastestproduction.com", "+966 11 000 0000"] },
               { h: "STUDIO", lines: ["Riyadh, Saudi Arabia", "24 / 7 Production Floor"] },
-              { h: "SOCIAL", lines: ["Instagram", "LinkedIn", "Behance"] },
+              { h: "SOCIAL", lines: ["Facebook", "Instagram", "LinkedIn", "WhatsApp"] },
               { h: "HOURS", lines: ["24 / 7", "Always Ready"] },
             ].map((b) => (
               <div key={b.h}>
@@ -93,7 +93,7 @@ export function Footer() {
 
         <Skyline />
 
-        <div className="flex items-end justify-between gap-6 pt-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pt-2">
           <div className="flex items-center gap-3">
             <img src={logo} alt="Fastest Production" className="h-8 w-auto" />
           </div>
