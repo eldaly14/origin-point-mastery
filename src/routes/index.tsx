@@ -6,8 +6,8 @@ import { Portfolio } from "@/components/Portfolio";
 import { Manifesto } from "@/components/Manifesto";
 import { EthosTicker } from "@/components/EthosTicker";
 
-// FIX: Removed curly braces to use the default export
-import Footer from "@/components/Footer"; 
+// src/routes/index.tsx
+import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
