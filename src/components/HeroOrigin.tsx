@@ -83,47 +83,58 @@ export function HeroOrigin() {
       </motion.div>
 
       {/* Content reveal */}
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.3, duration: 0.6 }}
-          className="mb-4 flex items-center gap-3 text-xs tracking-[0.3em] text-neon"
-        >
-          <span className="h-px w-12 bg-neon" />
-          FASTEST PRODUCTION
-          <span className="h-px w-12 bg-neon" />
-        </motion.div>
-
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center pt-20">
+        
+        {/* Option B Typography matching the screenshot with requested shadow effects */}
         <motion.h1
           initial={{ opacity: 0, y: 40, letterSpacing: "0.5em" }}
           animate={{ opacity: 1, y: 0, letterSpacing: "0em" }}
           transition={{ delay: 2.2, duration: 0.7, ease: [0.7, 0, 0.3, 1] }}
-          className="font-display text-[clamp(3.5rem,12vw,11rem)] leading-[0.85] glow-text"
+          className="font-display text-[clamp(2.5rem,7vw,8rem)] leading-[1.1] uppercase"
         >
-          <span className="block text-white">Always</span>
-          <span className="block text-neon">Ready!</span>
+          <span className="block text-white mb-2">We Don't Just</span>
+          <span className="block text-white mb-2">
+            Build <span className="bg-neon text-black px-4 py-1 inline-block shadow-neon">Stages</span> —
+          </span>
+          <span className="block text-white mb-2">We Engineer</span>
+          <span className="block text-black bg-neon px-4 py-1 inline-block shadow-neon">
+            Moments
+          </span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.6, duration: 0.6 }}
-          className="mt-6 max-w-xl text-sm md:text-base text-white/70"
+          className="mt-8 max-w-2xl text-sm md:text-base text-white/70 leading-relaxed"
         >
-          From a single point to a fully realized three-dimensional production.
-          Speed, precision, and zero compromise.
+          Fastest Production is the trusted fabrication and event production partner for the region's most demanding clients. From concept to three-dimensional reality — every time, on time.
         </motion.p>
 
-        {/* Stats */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-4xl">
+        {/* Blueprint Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.8, duration: 0.6 }}
+          className="mt-10"
+        >
+          <a 
+            href="#contact"
+            className="px-8 py-4 bg-neon text-black font-display font-semibold tracking-[0.2em] text-sm hover:bg-white hover:shadow-neon transition-all duration-300 flex items-center gap-3"
+          >
+            SEND YOUR BLUEPRINT <span>→</span>
+          </a>
+        </motion.div>
+
+        {/* Stats Section integrated at the bottom of the hero */}
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-4xl">
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.4 + i * 0.1, duration: 0.5 }}
-              className="border border-neon/40 bg-black/60 backdrop-blur p-4 text-left"
+              className="border border-neon/40 bg-black/60 backdrop-blur p-4 text-left hover:shadow-neon-sm transition-shadow duration-300"
               style={{ boxShadow: "inset 0 0 0 1px #01ea5a22" }}
             >
               <div className="font-display text-2xl md:text-4xl text-neon glow-text">
@@ -135,16 +146,6 @@ export function HeroOrigin() {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 3.2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[10px] tracking-[0.3em] text-white/50"
-        >
-          SCROLL
-          <div className="h-10 w-px bg-gradient-to-b from-neon to-transparent" />
-        </motion.div>
       </div>
     </section>
   );
